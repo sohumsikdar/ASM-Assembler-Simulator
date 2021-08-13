@@ -64,8 +64,4 @@ def iscmdvalid(cmd):
             return False
         return True
     
-
-
-
-
-
+    

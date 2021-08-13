@@ -42,8 +42,18 @@ for i,cmd in enumerate(commandList):
 
 
 for i,cmd in enumerate(commandList):
+    # Strip for flags
     if(cmd[0][-1] == ':'):
         cmd = cmd[1:]
+
+    # Check for hlts
+    hltCheck = True
+    if(cmd[0] == "hlt"):
+        if(not(len(cmd) == 1 and i + 1 == len(commandList))):
+            print("Error in instruction " + str(i + 1))
+            break
+    
+    #Checks for Syntax error
     flag = iscmdvalid(cmd)
     if(flag == False):
         print("Error in instruction " + str(i + 1))
