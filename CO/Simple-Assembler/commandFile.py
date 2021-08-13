@@ -1,3 +1,4 @@
+from errorFile import *
 from dic import *
 def get8bit (k):
     s = '{0:08b}'.format(k)

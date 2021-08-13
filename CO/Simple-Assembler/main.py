@@ -1,6 +1,7 @@
 import sys
 from dic import *
 from commandFile import *
+from errorFile import *
 
 PC = 1
 commandList = []
@@ -12,7 +13,6 @@ def giveOut(OP, lst):
 def valid(lst):
     if(lst[0] != 'var'):
         return True
-    global SymbList
     SymbList[lst[1]] = None
     return False
 
@@ -44,4 +44,9 @@ for i,cmd in enumerate(commandList):
 for i,cmd in enumerate(commandList):
     if(cmd[0][-1] == ':'):
         cmd = cmd[1:]
-    printCmd(cmd)
+    flag = iscmdvalid(cmd)
+    if(flag == False):
+        print("Error in instruction " + str(i + 1))
+        break
+    else:
+        printCmd(cmd)
