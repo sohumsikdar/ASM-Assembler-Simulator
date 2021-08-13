@@ -1,14 +1,11 @@
 import sys
 from OPCode import *
 from typetable import *
+from commandFile import *
+from symboltable import *
 
 PC = 1
-SymbList = {}
 commandList = []
-
-def get8bit (k):
-    s = '{0:08b}'.format(k)
-    return s
 
 def giveOut(OP, lst):
     pass
@@ -37,6 +34,5 @@ for k in SymbList.keys():
     ctr += 1
 
 for i,cmd in enumerate(commandList):
+    printCmd(cmd)
     
-
-print(SymbList)
