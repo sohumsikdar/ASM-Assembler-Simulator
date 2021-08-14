@@ -26,6 +26,15 @@ def valid(lst):
         print("Error: Variable not declared at the beginning")
         sys.exit()
 
+    for char in lst[1]:
+        if(not(char.isalnum() == True or char == "_")):
+            print("Error: invalid varible name")
+            sys.exit()
+
+    if(lst[1].isdigit()):
+        print("Error: purely numberic variable name")
+        sys.exit()
+
     SymbList[lst[1]] = None
     return False
 
@@ -47,13 +56,29 @@ ctr = len(commandList)
 for k in SymbList.keys():
     SymbList[k] = ctr
     ctr += 1
+    
 
 
 # Giving the values to the labels
 for i,cmd in enumerate(commandList):
-    if((cmd[0][0:-1] and cmd[0]) not in opCode.keys()):
+    if((cmd[0][0:-1] and cmd[0]) not in (opCode.keys() or reg.keys())):
+        l = cmd[0]
+        if(l[-1] != ':'):
+            print("Error: invalid label in instruction " + str(i + 1))
+            sys.exit()
+        l = l[0:-1]
+
+        for char in l:
+            if(not(char.isalnum() == True or char == '_')):
+                print("Error: invalid label in instruction " + str(i + 1))
+                sys.exit()
+        
+        if(l.isdigit()):
+            print("Error: invalid label in instruction " + str(i + 1))
+            sys.exit()
+        
         if(cmd[0][0:-1] in label.keys()):
-            print("Error: Redeclaration of a label")
+            print("Error: Redeclaration of a label in instruction " + str(i + 1))
             sys.exit()   
 
         label[cmd[0][0:-1]] = get8bit(i)
@@ -84,8 +109,13 @@ for i,cmd in enumerate(commandList):
            
     #Checks for Syntax error
     flag = iscmdvalid(cmd)
+
     if(flag == False):
         print("Error in instruction " + str(i + 1))
         break
     else:
         printCmd(cmd)
+
+    if(i == len(commandList) - 1 and cmd != "hlt"):
+        print("Error: missing hlt instruction")
+        sys.exit()
