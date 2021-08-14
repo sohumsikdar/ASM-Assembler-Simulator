@@ -21,18 +21,23 @@ F === op, 00000000000 (hlt)
 
 
 
-1 > Typo in Ins or Reg ->> check in OP, Reg dictionary
-2 > Undefined Var ->> check in SymbolList
-3 > Undefined Label ->> check in label (dic)
-4 > Illegal flags? 
-5 > Check for imm values : Mov imm, right shift, left shift
-6 > Cannot use Vars in jmp, jlt, jgt, je, Cannot use labels in load, store
+//1 > Typo in Ins or Reg ->> check in OP, Reg dictionary :mov
 
-7 > Check for var only at the beginning use a bool flag which will turn true once we hit a valid cmd
+//2 > Undefined Var ->> check in SymbolList
 
-8 & 9 > check for hlt only at the end
+//3 > Undefined Label ->> check in label (dic)
 
-10 > check for all syntax of all OPs
+//4 > Illegal flags? 
+
+//5 > Check for imm values : Mov imm, right shift, left shift
+
+//6 > Cannot use Vars in jmp, jlt, jgt, je, Cannot use labels in load, store
+
+//7 > Check for var only at the beginning use a bool flag which will turn true once we hit a valid cmd
+
+//8 & 9 > check for hlt only at the end
+
+//10 > check for all syntax of all OPs
 
 
 
