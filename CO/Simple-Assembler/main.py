@@ -13,6 +13,9 @@ def giveOut(OP, lst):
 def valid(lst):
     if(lst[0] != 'var'):
         return True
+    if(lst[1] in SymbList.keys()):
+        print("Error: Redeclaration of a variable")
+        sys.exit()
     SymbList[lst[1]] = None
     return False
 
@@ -27,18 +30,26 @@ while True:
         break
 
 
-
 # Giving the values to the Symbols/var
 ctr = len(commandList)
 for k in SymbList.keys():
     SymbList[k] = ctr
     ctr += 1
 
-# Giving the values to the labels
 
+# Giving the values to the labels
 for i,cmd in enumerate(commandList):
     if((cmd[0][0:-1] and cmd[0]) not in opCode.keys()):
+        if(cmd[0][0:-1] in label.keys()):
+            print("Error: Redeclaration of a label")
+            sys.exit()   
+
         label[cmd[0][0:-1]] = get8bit(i)
+
+# check for lesser than 257 instructions
+if(len(commandList) > 256):
+    print("Error: More than 256 instuctions")
+    sys.exit()
 
 
 for i,cmd in enumerate(commandList):
@@ -52,7 +63,10 @@ for i,cmd in enumerate(commandList):
         if(not(len(cmd) == 1 and i + 1 == len(commandList))):
             print("Error in instruction " + str(i + 1))
             break
-    
+        else:
+            print("1001100000000000")
+            break
+           
     #Checks for Syntax error
     flag = iscmdvalid(cmd)
     if(flag == False):

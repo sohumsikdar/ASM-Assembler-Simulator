@@ -9,8 +9,24 @@ def iscmdvalid(cmd):
         return False
     t = opCode[op][1]
     
+    if(op == "mov"):
+        if(len(cmd) != 3):
+            return False
 
-    if(t == 'A'):
+        if(cmd[2][0] == '$'):
+            if(((cmd[1] not in reg.keys() or cmd[1] == "FLAGS")) or (int(cmd[2][1:]) not in range(0, 256))):
+                return False
+            return True
+
+        elif(cmd[2] in reg.keys()):
+            if(cmd[1] in reg.keys() and cmd[1] != "FLAGS"):
+                return True
+            return False
+
+        else:
+            return False
+
+    elif(t == 'A'):
         if(len(cmd) != 4):
             return False
 
@@ -23,7 +39,7 @@ def iscmdvalid(cmd):
         return True
     
 
-    if(t == 'B'):
+    elif(t == 'B'):
         if(len(cmd) != 3):
             return False
         r = cmd[1]
@@ -36,7 +52,7 @@ def iscmdvalid(cmd):
         return True
 
 
-    if(t == 'C'):
+    elif(t == 'C'):
         if(len(cmd) != 3):
             return False
         r1 = cmd[1]
@@ -46,7 +62,7 @@ def iscmdvalid(cmd):
         return True
     
 
-    if(t == 'D'):
+    elif(t == 'D'):
         if(len(cmd) != 3):
             return False
         r = cmd[1]
@@ -56,12 +72,15 @@ def iscmdvalid(cmd):
         return True
 
 
-    if(t == 'E'):
+    elif(t == 'E'):
         if(len(cmd) != 2):
             return False
         var = cmd[1]
         if(var not in label.keys() or var in SymbList.keys()):
             return False
         return True
+
+    else:
+        return False
     
     
