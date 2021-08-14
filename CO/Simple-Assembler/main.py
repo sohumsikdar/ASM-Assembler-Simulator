@@ -13,9 +13,19 @@ def giveOut(OP, lst):
 def valid(lst):
     if(lst[0] != 'var'):
         return True
-    if(lst[1] in SymbList.keys()):
+
+    if(len(lst) == 1):
+        print("Error: no variable to declare")
+        sys.exit()
+
+    elif(lst[1] in SymbList.keys()):
         print("Error: Redeclaration of a variable")
         sys.exit()
+
+    if(len(commandList) != 0):
+        print("Error: Variable not declared at the beginning")
+        sys.exit()
+
     SymbList[lst[1]] = None
     return False
 
@@ -23,6 +33,8 @@ def valid(lst):
 while True:
     try:
         lst = input().split()
+        if(len(lst) == 0):
+            continue
         if(valid(lst) == True):
             commandList.append(lst)
 
@@ -55,6 +67,9 @@ if(len(commandList) > 256):
 for i,cmd in enumerate(commandList):
     # Strip for flags
     if(cmd[0][-1] == ':'):
+        if(len(cmd) == 1):
+            print("Error in instruction " + str(i + 1))
+            sys.exit()
         cmd = cmd[1:]
 
     # Check for hlts
