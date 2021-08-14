@@ -19,11 +19,29 @@ from typetable import *
 # lst = input().split()
 # printCmd(lst)
 
+# def printComp(cmd):
+#     op = cmd[0]
+#     s = ''
+#     if(op == "cmp"):
+#         s = opCode[op][0] + '00000' + reg[cmd[1]] + reg[cmd[2]]
+#     if(op == "jmp"):
+#         s = opCode[op][0] + '000' + label[cmd[1]]
+#     if(op == "jlt"):
+#         s = opCode[op][0] + '000' + label[cmd[1]]
+#     if(op == "jgt"):
+#         s = opCode[op][0] + '000' + label[cmd[1]]
+#     if(op == "je"):
+#         s = opCode[op][0] + '000' + label[cmd[1]]
+#     if(op == "hlt"):
+#         s = opCode[op][0] + '00000000000'
+    
+
+lst = input().split()
+printComp(lst)
+
 def printComp(cmd):
     op = cmd[0]
     s = ''
-    if(op == "cmp"):
-        s = opCode[op][0] + '00000' + reg[cmd[1]] + reg[cmd[2]]
     if(op == "jmp"):
         s = opCode[op][0] + '000' + label[cmd[1]]
     if(op == "jlt"):
@@ -32,9 +50,3 @@ def printComp(cmd):
         s = opCode[op][0] + '000' + label[cmd[1]]
     if(op == "je"):
         s = opCode[op][0] + '000' + label[cmd[1]]
-    if(op == "hlt"):
-        s = opCode[op][0] + '00000000000'
-    
-
-lst = input().split()
-printComp(lst)
