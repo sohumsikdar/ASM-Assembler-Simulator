@@ -57,6 +57,7 @@ ctr = len(commandList)
 for k in SymbList.keys():
     SymbList[k] = ctr
     ctr += 1
+    PC  = PC + 1
     
 
 
