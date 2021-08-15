@@ -15,7 +15,7 @@ def valid(lst):
         return True
 
     if(len(lst) == 1):
-        print("Error: no variable to declare")
+        print("Error: no variable name was mentioned during declaration")
         sys.exit()
 
     elif(lst[1] in SymbList.keys()):
