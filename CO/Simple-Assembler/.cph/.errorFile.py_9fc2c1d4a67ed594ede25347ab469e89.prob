@@ -1,0 +1,1 @@
+{"name":"Local: errorFile","url":"/Users/pr0hum/CO_Assignment/CO/Simple-Assembler/errorFile.py","tests":[{"id":1628884292232,"input":"mylabel: add R0 myvar\nmylabel: add xyz\nmylabel: add","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/pr0hum/CO_Assignment/CO/Simple-Assembler/errorFile.py","group":"local","local":true}
