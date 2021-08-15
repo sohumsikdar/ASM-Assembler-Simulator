@@ -47,7 +47,6 @@ while True:
             continue
         if(valid(lst, PC) == True):
             commandList.append(lst)
-            PC = PC + 1
 
     except EOFError:
         break
@@ -66,21 +65,21 @@ for i,cmd in enumerate(commandList):
     if((cmd[0][0:-1] and cmd[0]) not in (opCode.keys() or reg.keys())):
         l = cmd[0]
         if(l[-1] != ':'):
-            print("Error: invalid label in instruction " + str(i + 1))
+            print("Error: invalid label in instruction " + str(PC + i))
             sys.exit()
         l = l[0:-1]
 
         for char in l:
             if(not(char.isalnum() == True or char == '_')):
-                print("Error: invalid label in instruction " + str(i + 1))
+                print("Error: invalid label in instruction " + str(PC + i))
                 sys.exit()
         
         if(l.isdigit()):
-            print("Error: invalid label in instruction " + str(i + 1))
+            print("Error: invalid label in instruction " + str(PC + i))
             sys.exit()
         
         if(cmd[0][0:-1] in label.keys()):
-            print("Error: Redeclaration of a label in instruction " + str(i + 1))
+            print("Error: Redeclaration of a label in instruction " + str(PC + i))
             sys.exit()   
 
         label[cmd[0][0:-1]] = get8bit(i)
@@ -95,7 +94,7 @@ for i,cmd in enumerate(commandList):
     # Strip for flags
     if(cmd[0][-1] == ':'):
         if(len(cmd) == 1):
-            print("Error in instruction " + str(i + 1))
+            print("Error in instruction " + str(PC + i))
             sys.exit()
         cmd = cmd[1:]
 
@@ -103,7 +102,7 @@ for i,cmd in enumerate(commandList):
     hltCheck = True
     if(cmd[0] == "hlt"):
         if(not(len(cmd) == 1 and i + 1 == len(commandList))):
-            print("Error in instruction " + str(i + 1))
+            print("Error in instruction " + str(PC + i))
             break
         else:
             print("1001100000000000")
@@ -113,7 +112,7 @@ for i,cmd in enumerate(commandList):
     flag = iscmdvalid(cmd)
 
     if(flag == False):
-        print("Error in instruction " + str(i + 1))
+        print("Error in instruction " + str(PC + i))
         break
     else:
         printCmd(cmd)
