@@ -10,29 +10,29 @@ def giveOut(OP, lst):
     pass
 
 # Assigns the Symbol/var none and returns bool to append the command
-def valid(lst):
+def valid(lst, i):
     if(lst[0] != 'var'):
         return True
 
     if(len(lst) == 1):
-        print("Error: no variable to declare")
+        print("Error at Line " + str(i) + ": no variable to declare")
         sys.exit()
 
     elif(lst[1] in SymbList.keys()):
-        print("Error: Redeclaration of a variable")
+        print("Error at Line " + str(i) + ": Redeclaration of a variable")
         sys.exit()
 
     if(len(commandList) != 0):
-        print("Error: Variable not declared at the beginning")
+        print("Error at Line " + str(i) + ": Variable not declared at the beginning")
         sys.exit()
 
     for char in lst[1]:
         if(not(char.isalnum() == True or char == "_")):
-            print("Error: invalid varible name")
+            print("Error at Line " + str(i) + ": invalid variable name")
             sys.exit()
 
     if(lst[1].isdigit()):
-        print("Error: purely numberic variable name")
+        print("Error at Line " + str(i) + ": purely numberic variable name")
         sys.exit()
 
     SymbList[lst[1]] = None
@@ -43,9 +43,11 @@ while True:
     try:
         lst = input().split()
         if(len(lst) == 0):
+            PC = PC + 1
             continue
-        if(valid(lst) == True):
+        if(valid(lst, PC) == True):
             commandList.append(lst)
+            PC = PC + 1
 
     except EOFError:
         break
