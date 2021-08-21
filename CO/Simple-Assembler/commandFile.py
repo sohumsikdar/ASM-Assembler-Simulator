@@ -56,11 +56,11 @@ def printCmd(cmd):
 
     if(op ==  "rs"):
         k = int(cmd[-1][1:])
-        s = opCode[op][0] + '000' + get8bit(k)
+        s = opCode[op][0] + reg[cmd[1]] + get8bit(k)
 
     if(op == "ls"):
         k = int(cmd[-1][1:])
-        s = opCode[op][0] + '000' + get8bit(k)
+        s = opCode[op][0] + reg[cmd[1]] + get8bit(k)
 
     if(op == "xor"):
         s = opCode[op][0] + '00' + reg[cmd[1]] + reg[cmd[2]] + reg[cmd[3]]
@@ -73,6 +73,6 @@ def printCmd(cmd):
 
     if(op == "not"):
         k = int(cmd[-1][1:])
-        s = opCode[op][0] + '000' + get8bit(k)
+        s = opCode[op][0] + '00000' + reg[cmd[1]] + reg[cmd[2]] 
 
     print(s)
