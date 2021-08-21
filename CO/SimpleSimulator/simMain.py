@@ -28,15 +28,15 @@ def getOut(cmd):
         if(OPC == "00000"):
             add(reg1, reg2, reg3)
         if(OPC == "00001"):
-            sub(reg1, reg2, reg2)
+            sub(reg1, reg2, reg3)
         if(OPC == "00110"):
-            mul(reg1, reg2, reg2)
+            mul(reg1, reg2, reg3)
         if(OPC == "01010"):
-            OR(reg1, reg2, reg2)
+            OR(reg1, reg2, reg3)
         if(OPC == "01011"):
-            XOR(reg1, reg2, reg2)
+            XOR(reg1, reg2, reg3)
         if(OPC == "01100"):
-            AND(reg1, reg2, reg2)
+            AND(reg1, reg2, reg3)
             
     
     elif OPC in OPDic["B"]:
@@ -95,7 +95,7 @@ def sub(r1, r2, r3):
 def mul(r1, r2, r3):
     Reg[r1] = Reg[r2] * Reg[r3]
     if Reg[r1] > 65535:
-        Reg[r1] = Reg[r1] % 65535
+        Reg[r1] = Reg[r1] % 65536
         Reg["111"] = 8
     else:
         flagReset()
@@ -129,7 +129,7 @@ def RS(r, im):
 def LS(r, im):
     Reg[r] = Reg[r] << im
     if Reg[r] > 65535:
-        Reg[r] = Reg[r] % 65535
+        Reg[r] = Reg[r] % 65536
         Reg["111"] = 8
     else:
         flagReset()
@@ -201,7 +201,7 @@ while(commandList[PC] != "1001100000000000"):
         # jmp
         if OPC == "01111":
             PC = mem
-
+    
         # jlt
         if OPC == "10000":
             if(Reg["111"] == 4):
