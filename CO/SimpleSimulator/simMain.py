@@ -1,3 +1,4 @@
+import sys
 from OPClass import *
 PC = 0
 commandList = []
@@ -41,7 +42,6 @@ def getOut(cmd):
     elif OPC in OPDic["B"]:
         reg = cmd[5:8]
         IM = int(cmd[8:], 2)
-        print(reg, IM)
         if(OPC == "00010"):
             movI(reg, IM)
         if(OPC == "01000"):
@@ -56,7 +56,7 @@ def getOut(cmd):
 
         if(OPC == "00011"):
             movR(reg1, reg2)
-        if(OPC == "00111"):
+        if(OPC == "00111"): 
             div(reg1, reg2)
         if(OPC == "01101"):
             NOT(reg1, reg2)
@@ -152,6 +152,7 @@ def NOT(reg1, reg2):
     dump()
 
 def CMP(reg1, reg2):
+    flagReset()
     if(Reg[reg1] > Reg[reg2]):
         Reg["111"] = 2
 
@@ -166,9 +167,14 @@ def load(reg, mem):
     if(mem not in memAddr.keys()):
         memAddr[mem] = 0
     Reg[reg] = memAddr[mem]
+    flagReset()
+    dump()
+
 
 def store(reg, mem):
     memAddr[mem] = Reg[reg]
+    flagReset()
+    dump()
 
 
 while True:
@@ -179,15 +185,61 @@ while True:
     except EOFError:
         break
 
-    
+
 while(commandList[PC] != "1001100000000000"):
+    OPC = commandList[PC][:5]
     print(get8bit(PC), end = " ")
-    getOut(commandList[PC])
-    print()
-    PC += 1
+    # For non jump OPs
+    if(OPC in OPDic["A"] or OPC in OPDic["B"] or OPC in OPDic["C"] or OPC in OPDic["D"]):
+        getOut(commandList[PC])
+        print()
+        PC += 1
+
+    # For jump OPs
+    else:
+        mem = int(commandList[PC][8:], 2)
+        # jmp
+        if OPC == "01111":
+            PC = mem
+
+        # jlt
+        if OPC == "10000":
+            if(Reg["111"] == 4):
+                PC = mem
+            else:
+                PC += 1
+       
+        # jgt
+        if OPC == "10001":
+            if(Reg["111"] == 2):
+                PC = mem
+            else:
+                PC += 1
+
+        # jge
+        if OPC == "10010":
+            if(Reg["111"] == 1):
+                PC = mem
+            else:
+                PC += 1   
+
+        flagReset()
+        dump()
+        print()
+
+
 
 flagReset()
 print(get8bit(PC), end = " ")
 dump()
 PC += 1
+print()
 
+for i in range (0,256):
+    if(i < len(commandList)):
+        print(commandList[i])
+    else:
+        if(get8bit(i) in memAddr.keys()):
+            print(get16bit(memAddr[get8bit(i)]))
+        else:
+            print("0000000000000000")
