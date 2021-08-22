@@ -218,22 +218,29 @@ while(commandList[PC] != "1001100000000000"):
         if OPC == "10000":
             if(Reg["111"] == 4):
                 PC = mem
+                y_coord.append(PC)
             else:
+                y_coord.append(PC)
                 PC += 1
        
         # jgt
         if OPC == "10001":
             if(Reg["111"] == 2):
                 PC = mem
+                y_coord.append(PC)
             else:
+                y_coord.append(PC)
                 PC += 1
-
+                
         # jge
         if OPC == "10010":
             if(Reg["111"] == 1):
                 PC = mem
+                y_coord.append(PC)
             else:
+                y_coord.append(PC)
                 PC += 1   
+                
 
         flagReset()
         dump()
