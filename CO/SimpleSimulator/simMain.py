@@ -265,12 +265,14 @@ for i in range (0,256):
             print("0000000000000000")
 
 #Plotting the graph
-x_coord = [i for i in range(len(y_coord))]
-plt.style.use('seaborn')
-plt.scatter(x_coord,y_coord, cmap='summer', edgecolor='black', linewidth=1, alpha=0.75)
-plt.title('Memory accessed Vs Cycles')
-plt.xlabel('Cycle number')
-plt.ylabel('Memory address')
+def plot(): 
+    x_coord = [i for i in range(len(y_coord))]
+    plt.style.use('seaborn')
+    plt.scatter(x_coord,y_coord, cmap='summer', edgecolor='black', linewidth=1, alpha=0.75)
+    plt.title('Memory accessed Vs Cycles')
+    plt.xlabel('Cycle number')
+    plt.ylabel('Memory address')
+    plt.tight_layout()
+    plt.show()
 
-plt.tight_layout()
-plt.show()
+plot()
