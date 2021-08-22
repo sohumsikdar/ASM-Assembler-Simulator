@@ -1,7 +1,9 @@
 import sys
+from matplotlib import pyplot as plt
 from OPClass import *
 PC = 0
 commandList = []
+y_coord = []
 
 def get16bit (k):
     s = '{0:016b}'.format(k)
@@ -189,39 +191,55 @@ while True:
 while(commandList[PC] != "1001100000000000"):
     OPC = commandList[PC][:5]
     print(get8bit(PC), end = " ")
+    # y_coord.append(PC)
     # For non jump OPs
-    if(OPC in OPDic["A"] or OPC in OPDic["B"] or OPC in OPDic["C"] or OPC in OPDic["D"]):
+    if(OPC in OPDic["A"] or OPC in OPDic["B"] or OPC in OPDic["C"]):
         getOut(commandList[PC])
         print()
+        y_coord.append(PC)
         PC += 1
 
+    elif (OPC in OPDic["D"]):
+        getOut(commandList[PC])
+        print()
+        mem = int(commandList[PC][8:], 2)
+        y_coord.append(mem)
+        PC += 1
+    
     # For jump OPs
     else:
         mem = int(commandList[PC][8:], 2)
         # jmp
         if OPC == "01111":
             PC = mem
-    
+            y_coord.append(PC)
+
         # jlt
         if OPC == "10000":
             if(Reg["111"] == 4):
                 PC = mem
+                y_coord.append(PC)
             else:
                 PC += 1
+                y_coord.append(PC)
        
         # jgt
         if OPC == "10001":
             if(Reg["111"] == 2):
                 PC = mem
+                y_coord.append(PC)
             else:
                 PC += 1
+                y_coord.append(PC)
 
         # jge
         if OPC == "10010":
             if(Reg["111"] == 1):
                 PC = mem
+                y_coord.append(PC)
             else:
-                PC += 1   
+                PC += 1 
+                y_coord.append(PC)
 
         flagReset()
         dump()
@@ -232,6 +250,7 @@ while(commandList[PC] != "1001100000000000"):
 flagReset()
 print(get8bit(PC), end = " ")
 dump()
+y_coord.append(PC)
 PC += 1
 print()
 
@@ -243,3 +262,14 @@ for i in range (0,256):
             print(get16bit(memAddr[get8bit(i)]))
         else:
             print("0000000000000000")
+
+#Plotting the graph
+x_coord = [i for i in range(len(y_coord))]
+plt.style.use('seaborn')
+plt.scatter(x_coord,y_coord, cmap='summer', edgecolor='black', linewidth=1, alpha=0.75)
+plt.title('Memory accessed Vs Cycles')
+plt.xlabel('Cycle number')
+plt.ylabel('Memory address')
+
+plt.tight_layout()
+plt.show()
