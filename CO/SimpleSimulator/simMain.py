@@ -2,8 +2,10 @@ import sys
 from matplotlib import pyplot as plt
 from OPClass import *
 PC = 0
-commandList = []
+Cycle = -1
+x_coord = []
 y_coord = []
+commandList = []
 temp = []
 
 def get16bit (k):
@@ -190,8 +192,10 @@ while True:
 
 
 while(commandList[PC] != "1001100000000000"):
+    Cycle += 1
     OPC = commandList[PC][:5]
     print(get8bit(PC), end = " ")
+    x_coord.append(Cycle)
     y_coord.append(PC)
     # For non jump OPs
     if(OPC in OPDic["A"] or OPC in OPDic["B"] or OPC in OPDic["C"]):
@@ -204,7 +208,7 @@ while(commandList[PC] != "1001100000000000"):
         print()
         mem = int(commandList[PC][8:], 2)
         y_coord.append(mem)
-        temp.append(PC)
+        x_coord.append(Cycle)
         PC += 1
     
     # For jump OPs
@@ -246,6 +250,8 @@ flagReset()
 print(get8bit(PC), end = " ")
 dump()
 y_coord.append(PC)
+Cycle += 1
+x_coord.append(Cycle)
 PC += 1
 print()
 
@@ -258,12 +264,9 @@ for i in range (0,256):
         else:
             print("0000000000000000")
 
-#Plotting the graph
+
+# Plotting the graph
 def plot(): 
-    x_coord = [i for i in range(len(y_coord))]
-    x_coord += temp
-    x_coord.sort()
-    x_coord = x_coord[:len(y_coord)]
     plt.style.use('seaborn')
     plt.scatter(x_coord,y_coord, cmap='summer', edgecolor='black', linewidth=1, alpha=0.75)
     plt.title('Memory accessed Vs Cycles')
