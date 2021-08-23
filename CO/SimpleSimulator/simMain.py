@@ -35,9 +35,9 @@ def getOut(cmd):
         if(OPC == "00110"):
             mul(reg1, reg2, reg3)
         if(OPC == "01010"):
-            OR(reg1, reg2, reg3)
-        if(OPC == "01011"):
             XOR(reg1, reg2, reg3)
+        if(OPC == "01011"):
+            OR(reg1, reg2, reg3)
         if(OPC == "01100"):
             AND(reg1, reg2, reg3)
             
@@ -125,7 +125,7 @@ def movI(r, im):
     dump()
 
 def RS(r, im):
-    Reg[r] >> im
+    Reg[r] = Reg[r] >> im
     flagReset()
     dump()
 
