@@ -105,7 +105,7 @@ for i,cmd in enumerate(commandList):
     hltCheck = True
     if(cmd[0] == "hlt"):
         if(not(len(cmd) == 1 and i + 1 == len(commandList))):
-            print("Error in line " + str(lineArr[i]))
+            print("hlt error in line " + str(lineArr[i]))
             break
         else:
             print("1001100000000000")
