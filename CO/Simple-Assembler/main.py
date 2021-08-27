@@ -8,8 +8,6 @@ commandList = []
 lineArr = []
 linNum = 0
 
-def giveOut(OP, lst):
-    pass
 
 # Assigns the Symbol/var none and returns bool to append the command
 def valid(lst, i):
