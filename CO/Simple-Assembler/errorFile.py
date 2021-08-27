@@ -19,7 +19,12 @@ def iscmdvalid(cmd):
             if(((cmd[1] not in reg.keys() or cmd[1] == "FLAGS"))):
                 print(cmd[1] + " not a register ")
                 return False
-            if(int(cmd[2][1:]) not in range(0, 256)):
+            im = cmd[2][1:]
+            if(im.isdigit() == False):
+                print("Invalid immediate value ")
+                return False
+            im = int(im)
+            if(im not in range(0, 256)):
                 print("Imm value not in range ")
                 return False
             return True
@@ -58,7 +63,11 @@ def iscmdvalid(cmd):
             print("Invalid syntax ")
             return False
 
-        im = int(cmd[2][1:])
+        im = cmd[2][1:]
+        if(im.isdigit() == False):
+            print("Invalid immediate value ")
+            return False
+        im = int(im)
         if((r not in reg.keys() or r == "FLAGS")):
             print("Invalid register names ")
             return False
