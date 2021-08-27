@@ -17,7 +17,7 @@ def iscmdvalid(cmd):
 
         if(cmd[2][0] == '$'):
             if(((cmd[1] not in reg.keys() or cmd[1] == "FLAGS"))):
-                print(cmd[1] + " not a register ")
+                print(cmd[1] + " cannot be used as a Register ")
                 return False
             im = cmd[2][1:]
             if(im.isdigit() == False):
@@ -84,7 +84,7 @@ def iscmdvalid(cmd):
         r1 = cmd[1]
         r2 = cmd[2]
         if((r1 not in reg.keys() or r1 == "FLAGS") or (r2 not in reg.keys() or r2 == "FLAGS")):
-            print("Invalid register names ")
+            print("Invalid register usage ")
             return False
         return True
     
