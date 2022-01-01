@@ -1,5 +1,5 @@
 # ASM ASSEMBLER SIMULATOR
-Python script written to interpret and simulate code written using the OP Codes and Registers given in the Problem Statement
+Python script written to interpret and simulate asm code written using the OP Codes and Registers given in the Problem Statement
 
 <br>
 
