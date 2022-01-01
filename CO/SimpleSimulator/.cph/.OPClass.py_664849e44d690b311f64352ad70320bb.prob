@@ -1,1 +1,0 @@
-{"name":"Local: OPClass","url":"/Users/pr0hum/CO_Assignment/CO/SimpleSimulator/OPClass.py","tests":[{"id":1629562836248,"input":"0001000100000100\n0001001000000100\n0000000011010001\n1001100000000000","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/pr0hum/CO_Assignment/CO/SimpleSimulator/OPClass.py","group":"local","local":true}
